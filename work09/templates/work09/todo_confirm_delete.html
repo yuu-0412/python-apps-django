@@ -1,0 +1,28 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>削除確認</title>
+  <link rel="stylesheet" href="{% static 'work09/style.css' %}">
+</head>
+<body>
+  <div class="container">
+    <h1>🗑️ タスク削除確認</h1>
+    <p class="confirm-text">
+      「<strong>{{ todo.title }}</strong>」を本当に削除しますか？<br>
+      （この操作は取り消せません）
+    </p>
+
+    <form method="post" class="confirm-form">
+      {% csrf_token %}
+      <button type="submit" name="confirm_delete" class="btn btn-danger">削除する</button>
+      <button type="submit" name="cancel" class="btn btn-cancel">元に戻す</button>
+    </form>
+
+    <div style="margin-top:20px;">
+      <a href="{% url 'work09:todo_list' %}">← 一覧に戻る</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,158 @@
+/* ================================
+   全体設定
+================================ */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    line-height: 1.6;
+
+    /* 背景画像設定 */
+    background-image: url(''); /* 自分の写真に置き換え */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed; /* スクロールしても背景固定 */
+}
+
+
+
+/* ================================
+   セクション
+================================ */
+section {
+    background: rgba(255,255,255,0.85); /* 半透明で可読性UP */
+    padding: 25px;
+    margin:  30px auto;
+    max-width: 950px;
+    border-radius: 16px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    text-align: center;
+    backdrop-filter: blur(6px);
+}
+
+/* ================================
+   自己紹介アイコン
+================================ */
+.profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap; /* スマホ時は縦並びになる */
+}
+
+.profile-icon {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255,255,255,0.8);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: transform 0.3s;
+}
+
+.profile-icon:hover {
+    transform: scale(1.05);
+}
+
+/* ================================
+   グリッドレイアウト
+================================ */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 25px;
+}
+
+/* ================================
+   趣味・アーティストカード
+================================ */
+.artist{
+    /* ここはリンクでカード全体を囲むので、スタイルはartist-cardに移動 */
+}
+
+.artist-card {
+    display: block; /* リンク全体をブロック化してクリック可能に */
+    background: rgba(255,255,255,0.95);
+    padding: 18px;
+    border-radius: 14px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+    color: inherit; /* テキストの色をカード内で継承 */
+}
+
+.artist-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.artist-img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    border: 2px solid rgba(0,0,0,0.05);
+}
+
+.artist h3 {
+    margin-top: 10px;
+    font-size: 15px;
+    color: #222;
+    font-weight: 600;
+}
+
+/* ================================
+   自己紹介ラベル整列
+================================ */
+.profile-text p {
+    display: flex;
+    justify-content: flex-start; /* 左揃え */
+    align-items: center;         /* ラベルと値を縦方向中央に */
+    margin: 5px 0;               /* 行間 */
+}
+
+.profile-text .label {
+    display: inline-block;
+    width: 60px; /* 名前や学校名のラベル幅を揃える */
+    text-align: right;
+    margin-right: 10px;
+    font-weight: 600;
+}
+
+/* ================================
+   レスポンシブ対応
+================================ */
+@media screen and (max-width: 900px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    header {
+        font-size: 14px;
+        padding: 20px;
+    }
+
+    section {
+        padding: 20px;
+        margin: 20px;
+    }
+
+    .profile-icon {
+        width: 100px;
+        height: 100px;
+    }
+}

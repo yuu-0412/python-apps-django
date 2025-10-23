@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,6 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'work05',
+    'work06',
+    'work07',
+    'work08',
+    'work09',
+    'work10',
 ]
 
 MIDDLEWARE = [
@@ -121,3 +129,53 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/4.2/howto/static-files/
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / "work05" / "static"]
+STATICFILES_DIRS = [BASE_DIR / "work09" / "static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"  # 本番用に collectstatic するときに使う
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'work08_db',
+        'USER': 'root',
+        'PASSWORD': 'yuka0227',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+# === データベース設定 ===
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'work09_db',       # ← さっき作ったデータベース名
+        'USER': 'root',            # MySQLのユーザー
+        'PASSWORD': 'yuka0227',    # パスワード
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+        },
+    }
+}
+
+# ログインしていないときのリダイレクト先
+LOGIN_URL = '/login/'
+
+# ログイン後にリダイレクトするURL（任意）
+LOGIN_REDIRECT_URL = '/work10/'

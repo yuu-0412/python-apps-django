@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Hi & Low</title>
+    <link rel="stylesheet" href="{% static 'work07/css/style.css' %}">
+</head>
+<body>
+    
+        <h1>Hi & Low ゲーム</h1>
+    
+        <form method="POST">
+            {% csrf_token %}
+            <label>1〜100の数字を入力してください：</label>
+            <input type="number" name="number" min="1" max="100" required>
+            <button type="submit">判定！</button>
+        </form>
+    
+        {% if result %}
+            <h2>{{ result }}</h2>
+        {% endif %}
+    
+    <a href="{% url 'top' %}">トップへ戻る</a>
+</body>
+</html>

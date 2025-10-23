@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>じゃんけん</title>
+    <link rel="stylesheet" href="{% static 'work07/css/style.css' %}">
+</head>
+<body>
+    <body>
+        <h1>じゃんけん</h1>
+    
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" name="hand" value="グー">✊ グー</button>
+            <button type="submit" name="hand" value="チョキ">✌️ チョキ</button>
+            <button type="submit" name="hand" value="パー">🖐 パー</button>
+        </form>
+    
+        {% if result %}
+            <h2>結果</h2>
+            <p>あなた：{{ user_hand }}</p>
+            <p>コンピュータ：{{ computer_hand }}</p>
+            <h3>{{ result }}</h3>
+        {% endif %}
+    <a href="{% url 'top' %}">トップへ戻る</a>
+</body>
+</html>

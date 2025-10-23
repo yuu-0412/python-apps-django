@@ -1,0 +1,27 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% if is_create %}作成{% else %}編集{% endif %} - TODO</title>
+  <link rel="stylesheet" href="{% static 'work09/style.css' %}">
+</head>
+<body>
+  <h1>{% if is_create %}タスク作成{% else %}タスク編集{% endif %}</h1>
+
+  <form method="post" class="todo-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <div class="button-group">
+      <button type="submit" class="btn">{% if is_create %}登録{% else %}更新{% endif %}</button>
+
+      {% if not is_create %}
+        <button type="submit" name="delete" value="1" class="btn delete-btn" onclick="return confirm('本当に削除しますか？');">削除</button>
+      {% endif %}
+    </div>
+  </form>
+
+  <p class="back-link"><a href="{% url 'work09:todo_list' %}">一覧に戻る</a></p>
+</body>
+</html>

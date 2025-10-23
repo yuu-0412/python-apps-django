@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>令和→西暦変換ツール</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <label>令和 {{ form.year }} 年</label>
+        <input type="submit" value="変換">
+    </form>
+
+    {% if result %}
+        <p>→ 令和{{ year_value }}年 は 西暦 {{ result }}年 です。</p>
+    {% endif %}
+
+    <p><a href="{% url 'work06_index' %}">トップページへ戻る</a></p>
+</body>
+</html>

@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>プロフィール</title>
+{% load static %}
+<link rel="stylesheet" href="{% static 'work05/style.css' %}">
+</head>
+<body>
+  <header>
+    <h1></h1>
+  </header>
+
+  <main>
+    <!-- 自己紹介 -->
+    <section class="profile">
+      <img src="../static/work05/img/うさぎ.png" alt="プロフィールアイコン" class="profile-icon">
+      <div class="profile-text">
+        <h2>自己紹介</h2>
+        <p><span class="label">名前:</span> 谷侑香里</p>
+        <p><span class="label">学校:</span> KADOKAWAドワンゴ情報工科学院</p>
+        <p><span class="label">一言:</span>辛い食べ物が好きです</p>
+      </div>
+    </section>
+
+    <!-- 趣味・好きなもの -->
+    <section>
+      <h2>推し</h2>
+      <div class="grid">
+
+        <article class="artist">
+          <a href="https://www.instagram.com/sora_04.12/" target="_blank" rel="noopener">
+            <div class="artist-card">
+              <img src="../static/work05/img/sora.jpg" alt="そら" class="artist-img">
+              <h3>そら</h3>
+            </div>
+          </a>
+        </article>
+
+        <article class="artist">
+          <a href="https://www.instagram.com/riku_u.0324_/" target="_blank" rel="noopener">
+            <div class="artist-card">
+              <img src="../static/work05/img/りく１.JPG" alt="りく" class="artist-img">
+              <h3>りく</h3>
+            </div>
+          </a>
+        </article>
+
+        <article class="artist">
+          <a href="https://hiraidai.com/" target="_blank" rel="noopener">
+            <div class="artist-card">
+              <img src="../static/work05/img/海.avif" alt="平井大" class="artist-img">
+              <h3>平井大</h3>
+            </div>
+          </a>
+        </article>
+
+        <article class="artist">
+          <a href="https://www.shimizushota.com/" target="_blank" rel="noopener">
+            <div class="artist-card">
+              <img src="../static/work05/img/虹２.avif" alt="清水翔太" class="artist-img">
+              <h3>清水翔太</h3>
+            </div>
+          </a>
+        </article>
+
+        <article class="artist">
+          <a href="https://chanmina.com/" target="_blank" rel="noopener">
+            <div class="artist-card">
+              <img src="../static/work05/img/花火１.avif" alt="ちゃんみな" class="artist-img">
+              <h3>ちゃんみな</h3>
+            </div>
+          </a>
+        </article>
+
+        <article class="artist">
+          <a href="https://hana.b-rave.tokyo" target="_blank" rel="noopener">
+            <div class="artist-card">
+              <img src="../static/work05/img/花２.avif" alt="HANA" class="artist-img">
+              <h3>HANA</h3>
+            </div>
+          </a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- 今年の目標 -->
+    <section>
+      <h2>今年の目標</h2>
+      <p>プログラミングの勉強を頑張ること!</p>
+    </section>
+  </main>
+</body>
+</html>

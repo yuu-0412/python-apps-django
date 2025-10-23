@@ -1,0 +1,158 @@
+/* style.css - 可愛い系 */
+
+body {
+    font-family: 'Helvetica Neue', sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    background: #fff8f5; /* ふんわりピンク背景 */
+    color: #333;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #ff6f91; /* メインカラー */
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  }
+  
+  th, td {
+    padding: 12px 15px;
+    text-align: left;
+  }
+  
+  th {
+    background: #ffe6ea; /* 薄ピンク */
+    color: #ff6f91;
+    font-weight: bold;
+  }
+  
+  tr:nth-child(even) {
+    background: #fff0f5; /* 交互に薄ピンク */
+  }
+  
+  tr.overdue {
+    background: #ffebee !important; /* 期限切れは濃いめピンク */
+  }
+  
+  span.strike {
+    text-decoration: line-through;
+    color: #aaa;
+  }
+  
+  .controls {
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .controls a {
+    display: inline-block;
+    margin: 0 0.5rem;
+    padding: 6px 12px;
+    text-decoration: none;
+    color: #fff;
+    background: #ff6f91;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    transition: 0.2s;
+  }
+  
+  .controls a:hover {
+    background: #ff3b6f;
+    transform: translateY(-2px);
+  }
+
+  /* 削除確認ページ */
+.container {
+  max-width: 600px;
+  margin: 60px auto;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.confirm-text {
+  font-size: 18px;
+  margin: 25px 0;
+  color: #555;
+}
+
+.confirm-form {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.btn-danger {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #ff4a4a;
+}
+
+.btn-cancel {
+  background-color: #ddd;
+  color: #333;
+}
+
+.btn-cancel:hover {
+  background-color: #ccc;
+}
+
+/* 完了・未完了ボタン */
+.status-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* 完了・未完了ボタン（かわいい切り替え） */
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+  background-color: #ffb6c1; /* 未完了はピンク */
+  color: white;
+}
+
+.btn:hover {
+  background-color: #ff91a4;
+  transform: translateY(-2px);
+}
+
+/* 完了済みボタン（ミントグリーンに変化） */
+.completed-btn {
+  background-color: #a0e7a0 !important;
+}
+
+.completed-btn:hover {
+  background-color: #7cd67c !important;
+}

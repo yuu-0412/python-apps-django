@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>四則演算 計算してくれるくん</title>
+</head>
+<body>
+    <h1> 四則演算 計算してくれるくん</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <label>数値1：</label>
+        <input type="number" step="any" name="num1" required><br><br>
+
+        <label>演算子：</label>
+        <select name="op">
+            <option value="+">＋</option>
+            <option value="-">−</option>
+            <option value="*">×</option>
+            <option value="/">÷</option>
+        </select><br><br>
+
+        <label>数値2：</label>
+        <input type="number" step="any" name="num2" required><br><br>
+
+        <button type="submit">計算する</button>
+    </form>
+
+    {% if result %}
+        <hr>
+        <p style="font-size: 20px;">結果：{{ result }}</p>
+    {% endif %}
+
+    <p><a href="{% url 'work06_index' %}">← メニューに戻る</a></p>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memo List</title>
+</head>
+<body>
+    <p>メモ一覧</p>
+    <a href="{% url 'memo_create' %}">新規作成</a>
+    <ul>
+      {% for memo in memos %}
+      <li>
+        <a href="{% url 'memo_edit' memo.id %}">{{ memo.title }}</a>
+        {% if memo.image %}
+          <br>
+          <img src="{{ memo.image.url }}" alt="{{ memo.title }}" width="200">
+        {% endif %}
+        <a href="{% url 'memo_delete' memo.id %}">削除</a>
+      </li>
+      {% endfor %}
+    </ul>
+</body>
+</html>

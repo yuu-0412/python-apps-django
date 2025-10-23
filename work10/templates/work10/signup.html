@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>新規登録</title>
+    <link rel="stylesheet" href="{% static 'work10/login_signup.css' %}">
+</head>
+<body>
+    <h1>新規登録</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">登録</button>
+    </form>
+    <p><a href="{% url 'login' %}">ログインページへ</a></p>
+</body>
+</html>

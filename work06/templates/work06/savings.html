@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>貯金計算してくれるくん</title>
+</head>
+<body>
+    <h1>💰 貯金計算してくれるくん</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <label>毎月の貯金額（円）：</label>
+        <input type="number" name="monthly" required><br><br>
+
+        <label>貯金する月数：</label>
+        <input type="number" name="months" required><br><br>
+
+        <button type="submit">計算する</button>
+    </form>
+
+    {% if result %}
+        <hr>
+        <p style="font-size: 20px;">{{ result }}</p>
+    {% endif %}
+
+    <p><a href="{% url 'work06_index' %}">← メニューに戻る</a></p>
+</body>
+</html>
