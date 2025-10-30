@@ -35,6 +35,7 @@ urlpatterns = [
     path("work08/", include("work08.urls")),
     path("work09/", include("work09.urls")),
     path("work10/", include("work10.urls")),
+    path('work11/', include("work11.urls")),
 
     # 認証関連
     path(

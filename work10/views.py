@@ -110,3 +110,4 @@ def signup(request):
     else:
         form = UserCreationForm()
     return render(request, "work10/signup.html", {"form": form})
+
