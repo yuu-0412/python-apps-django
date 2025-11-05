@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-sl-kaqon4kxrt2uk%hlrgtc#@&co%!^-b3a_2^j0abu&t9*t32
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = (os.environ.get("ALLOWED_HOSTS") or "").split(",")  # deploy for Railway
+CSRF_TRUSTED_ORIGINS = (os.environ.get("CSRF_TRUSTED_ORIGINS") or "").split(",")
 
 
 # Application definition
@@ -204,3 +205,4 @@ DATABASES = {
 from dotenv import load_dotenv
 
 load_dotenv()
+
