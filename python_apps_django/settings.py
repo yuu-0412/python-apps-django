@@ -199,13 +199,16 @@ DATABASE_PORT = os.environ.get("DB_PORT") or "3306"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": DATABASE_NAME,
-        "USER": DATABASE_USER,
-        "PASSWORD": DATABASE_PASSWORD,
-        "HOST": DATABASE_HOST,
-        "PORT": DATABASE_PORT,
+        "NAME": os.environ.get("DB_NAME") or "railway",
+        "USER": os.environ.get("DB_USER") or "root",
+        "PASSWORD": os.environ.get("DB_PASSWORD") or "",
+        "HOST": os.environ.get("DB_HOST") or os.environ.get("RAILWAY_PRIVATE_DOMAIN"),
+        "PORT": os.environ.get("DB_PORT") or "3306",
+        "OPTIONS": {
+            "charset": "utf8mb4",
+        },
     }
-}
+}    
 
 from dotenv import load_dotenv
 
