@@ -1,6 +1,7 @@
 # myapp/views.py
 import requests
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 
 def fetch_api_data(request):
     url = "https://example.com/api/data"  # 取得したいAPIのURL
