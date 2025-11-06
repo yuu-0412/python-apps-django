@@ -23,6 +23,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from work10 import views as work10_views
+from django.shortcuts import redirect
 
 urlpatterns = [
     # ルートURLはTODO一覧にリダイレクト
