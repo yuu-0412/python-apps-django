@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
-class Work05Config(AppConfig):
+class ClockConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'work05'
+    name = 'clock'

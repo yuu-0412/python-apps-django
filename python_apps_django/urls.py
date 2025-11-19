@@ -30,6 +30,7 @@ urlpatterns = [
     path("", lambda request: redirect("work10:todo_list"), name="home"),
 
     path("admin/", admin.site.urls),
+    path("clock/", include("clock.urls")),
     path("work05/", include("work05.urls")),
     path("work06/", include("work06.urls")),
     path("work07/", include("work07.urls")),
@@ -37,6 +38,7 @@ urlpatterns = [
     path("work09/", include("work09.urls")),
     path("work10/", include("work10.urls")),
     path('work11/', include("work11.urls")),
+    
 
     # 認証関連
     path(

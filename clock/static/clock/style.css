@@ -1,0 +1,77 @@
+/* ゆるふわ時計 CSS  by ChatGPT🌸 */
+body {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    background: linear-gradient(to bottom right, #ffeaf5, #e5f0ff);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.clock-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    border-radius: 2rem;
+    background-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+/* 時計の文字 */
+h1 {
+    font-size: 5rem;
+    color: #444;
+    margin: 0.5rem 0;
+    letter-spacing: 2px;
+}
+
+/* メッセージ */
+.message {
+    font-size: 1.5rem;
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+/* 🌸 アニメっぽいふわふわ効果 */
+.clock-container {
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* 📱 スマホ・タブレット対応 */
+@media screen and (max-width: 768px) {
+    h1 {
+        font-size: 3rem;
+    }
+
+    .message {
+        font-size: 1.2rem;
+    }
+
+    .clock-container {
+        width: 85%;
+        padding: 1.5rem;
+        border-radius: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    .message {
+        font-size: 1rem;
+    }
+}

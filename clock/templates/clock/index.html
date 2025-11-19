@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>tokei ⏰</title>
+    <link rel="stylesheet" href="{% static 'tokei/style.css' %}">
+    <script src="{% static 'tokei/main.js' %}" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="clock-container">
+        <h1 id="clock">00:00:00</h1>
+        <p class="message">{{ message }}</p>
+    </div>
+</body>
+</html>
