@@ -1,16 +1,49 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <title>tokei ⏰</title>
-    <link rel="stylesheet" href="{% static 'tokei/style.css' %}">
-    <script src="{% static 'tokei/main.js' %}" defer></script>
+    <link rel="stylesheet" href="{% static 'clock/style.css' %}">
+    <script src="{% static 'clock/main.js' %}" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div class="clock-container">
-        <h1 id="clock">00:00:00</h1>
-        <p class="message">{{ message }}</p>
-    </div>
+<body
+{% if photo %}
+    style="background-image: url('{{ photo.image.url }}'); background-size: cover; background-position: center;"
+{% endif %}
+>
+<!-- タブボタン -->
+<div class="tab-buttons">
+    <button class="tab-btn active" data-target="clock-section">時計 🕒</button>
+    <button class="tab-btn" data-target="stopwatch-section">ストップウォッチ ⏱</button>
+    <button class="tab-btn" data-target="timer-section">タイマー ⏲</button>
+</div>
+
+<!-- コンテンツ -->
+<div id="clock-section" class="tab-section clock-container">
+    <h1 id="clock">00:00:00</h1>
+</div>
+
+<div id="stopwatch-section" class="tab-section stopwatch-container">
+    <h1 id="stopwatch">00:00:00</h1>
+    <button id="sw-start">開始</button>
+    <button id="sw-stop">停止</button>
+    <button id="sw-reset">リセット</button>
+</div>
+
+<div id="timer-section" class="tab-section timer-container">
+    <input type="number" id="timer-min" placeholder="分">
+    <button id="timer-start">開始</button>
+    <button id="timer-reset">リセット</button>
+    <h1 id="timer">00:00</h1>
+</div>
+   
+    <div class="message">{{ message }}</div>
+
+    <a href="{% url 'clock:settings' %}">
+        <button class="settings-btn">⚙ 設定</button>
+    </a>
+
 </body>
 </html>

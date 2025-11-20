@@ -131,3 +131,10 @@ if os.environ.get("ENABLE_BASIC_AUTH", "false") == "true":
 
 # === Default primary key field type ===
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# settings.py
+TIME_ZONE = 'Asia/Tokyo'
+USE_TZ = True
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

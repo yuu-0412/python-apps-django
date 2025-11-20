@@ -1,0 +1,8 @@
+import os
+from django.conf import settings
+
+def index(request):
+    backgrounds_dir = os.path.join(settings.MEDIA_ROOT, 'backgrounds')
+    images = [f'backgrounds/{img}' for img in os.listdir(backgrounds_dir) if img.endswith(('.png','.jpg','.jpeg'))]
+
+    return render(request, 'clock/index.html', {'images': images})
