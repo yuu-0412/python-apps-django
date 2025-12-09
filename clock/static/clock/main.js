@@ -43,29 +43,35 @@ document.getElementById('sw-reset').onclick = () => {
     swDisplay.textContent = "00:00:00";
 };
 
-// --- タイマー ---
-let timerInterval, timerTime = 0;
-const timerDisplay = document.getElementById('timer');
+const clockDisplay = document.getElementById('clock');
 
 document.getElementById('timer-start').onclick = () => {
-    const minutes = parseInt(document.getElementById('timer-min').value) || 0;
-    timerTime = minutes * 60;
+    const t = document.getElementById('timer-time').value; // "00:30:00" みたいなのが入る
+    if(!t) return;
+
+    const [h, m, s] = t.split(":").map(Number);
+    timerTime = h*3600 + m*60 + s;
+
     clearInterval(timerInterval);
+
     timerInterval = setInterval(() => {
         if(timerTime <= 0){
             clearInterval(timerInterval);
             alert("時間です⏰");
+            updateClock(); // 普通の時計に戻す
             return;
         }
         timerTime--;
-        let m = String(Math.floor(timerTime/60)).padStart(2,'0');
-        let s = String(timerTime%60).padStart(2,'0');
-        timerDisplay.textContent = `${m}:${s}`;
+
+        let mm = String(Math.floor(timerTime/60)).padStart(2,'0');
+        let ss = String(timerTime%60).padStart(2,'0');
+
+        // 時計表示をタイマー表示に変える
+        clockDisplay.textContent = `${mm}:${ss}`;
     }, 1000);
 };
 
 document.getElementById('timer-reset').onclick = () => {
     clearInterval(timerInterval);
-    timerTime = 0;
-    timerDisplay.textContent = "00:00";
+    updateClock();
 };
