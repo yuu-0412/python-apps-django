@@ -24,6 +24,7 @@ def index(request):
     return render(request, "clock/index.html", {
         "message": message,
         "photo": selected_photo,
+        "range_60": range(0, 61),
     })
 
 

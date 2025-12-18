@@ -1,27 +1,39 @@
-// タブ切り替え
+/* -------- タブ切り替え -------- */
 const tabBtns = document.querySelectorAll('.tab-btn');
-const tabSections = document.querySelectorAll('.tab-section');
+const sections = document.querySelectorAll('.tab-section');
 
 tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         tabBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+        sections.forEach(s => s.classList.remove('active'));
 
-        tabSections.forEach(sec => sec.classList.remove('active'));
+        btn.classList.add('active');
         document.getElementById(btn.dataset.target).classList.add('active');
     });
 });
 
-// --- 時計 ---
-function updateClock() {
-    const clock = document.getElementById('clock');
+function checkOrientation() {
+    const warning = document.getElementById("rotate-warning");
+    if (window.innerHeight > window.innerWidth) {
+        warning.style.display = "flex";
+    } else {
+        warning.style.display = "none";
+    }
+}
+
+window.addEventListener("resize", checkOrientation);
+window.addEventListener("load", checkOrientation);
+
+/* -------- 時計 -------- */
+function updateClock(){
     const now = new Date();
-    clock.textContent = now.toLocaleTimeString('ja-JP', { hour12: false });
+    document.getElementById('clock').textContent =
+        now.toLocaleTimeString('ja-JP', { hour12:false });
 }
 setInterval(updateClock, 1000);
 updateClock();
 
-// --- ストップウォッチ ---
+/* -------- ストップウォッチ -------- */
 let swInterval, swTime = 0;
 const swDisplay = document.getElementById('stopwatch');
 
@@ -29,11 +41,11 @@ document.getElementById('sw-start').onclick = () => {
     clearInterval(swInterval);
     swInterval = setInterval(() => {
         swTime++;
-        let h = String(Math.floor(swTime/3600)).padStart(2,'0');
-        let m = String(Math.floor(swTime/60 % 60)).padStart(2,'0');
-        let s = String(swTime%60).padStart(2,'0');
+        const h = String(Math.floor(swTime/3600)).padStart(2,'0');
+        const m = String(Math.floor(swTime/60)%60).padStart(2,'0');
+        const s = String(swTime%60).padStart(2,'0');
         swDisplay.textContent = `${h}:${m}:${s}`;
-    }, 1000);
+    },1000);
 };
 
 document.getElementById('sw-stop').onclick = () => clearInterval(swInterval);
@@ -43,35 +55,29 @@ document.getElementById('sw-reset').onclick = () => {
     swDisplay.textContent = "00:00:00";
 };
 
-const clockDisplay = document.getElementById('clock');
+// --- タイマー ---
+let timerInterval;
+let timerTime = 0;
 
-document.getElementById('timer-start').onclick = () => {
-    const t = document.getElementById('timer-time').value; // "00:30:00" みたいなのが入る
-    if(!t) return;
+const timerFinish = document.getElementById("timer-finish");
 
-    const [h, m, s] = t.split(":").map(Number);
-    timerTime = h*3600 + m*60 + s;
+document.getElementById("timer-start").onclick = () => {
+    const minutes = parseInt(document.getElementById("timer-min").value);
+    timerTime = minutes * 60;
 
     clearInterval(timerInterval);
 
     timerInterval = setInterval(() => {
-        if(timerTime <= 0){
+        if (timerTime <= 0) {
             clearInterval(timerInterval);
-            alert("時間です⏰");
-            updateClock(); // 普通の時計に戻す
+            timerFinish.classList.add("show");
             return;
         }
         timerTime--;
-
-        let mm = String(Math.floor(timerTime/60)).padStart(2,'0');
-        let ss = String(timerTime%60).padStart(2,'0');
-
-        // 時計表示をタイマー表示に変える
-        clockDisplay.textContent = `${mm}:${ss}`;
     }, 1000);
 };
 
-document.getElementById('timer-reset').onclick = () => {
+document.getElementById("timer-reset").onclick = () => {
     clearInterval(timerInterval);
-    updateClock();
+    timerTime = 0;
 };

@@ -8,11 +8,19 @@
     <script src="{% static 'clock/main.js' %}" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
 </head>
+
 <body
 {% if photo %}
-    style="background-image: url('{{ photo.image.url }}'); background-size: cover; background-position: center;"
+style="background-image:url('{{ photo.image.url }}'); background-size:cover; background-position:center;"
 {% endif %}
 >
+
+<div id="rotate-warning">
+    <div class="rotate-box">
+        <p>📱 画面を横向きにしてください</p>
+    </div>
+</div>
+
 <!-- タブボタン -->
 <div class="tab-buttons">
     <button class="tab-btn active" data-target="clock-section">時計 🕒</button>
@@ -20,11 +28,12 @@
     <button class="tab-btn" data-target="timer-section">タイマー ⏲</button>
 </div>
 
-<!-- コンテンツ -->
-<div id="clock-section" class="tab-section clock-container">
+<!-- 時計 -->
+<div id="clock-section" class="tab-section active clock-container">
     <h1 id="clock">00:00:00</h1>
 </div>
 
+<!-- ストップウォッチ -->
 <div id="stopwatch-section" class="tab-section stopwatch-container">
     <h1 id="stopwatch">00:00:00</h1>
     <button id="sw-start">開始</button>
@@ -32,17 +41,26 @@
     <button id="sw-reset">リセット</button>
 </div>
 
+<!-- タイマー -->
 <div id="timer-section" class="tab-section timer-container">
     <input type="time" id="timer-time" step="1">
+    <h1 id="timer-display">00:00</h1>
     <button id="timer-start">開始</button>
     <button id="timer-reset">リセット</button>
 </div>
-   
-    <div class="message">{{ message }}</div>
 
-    <a href="{% url 'clock:settings' %}">
-        <button class="settings-btn">⚙ 設定</button>
-    </a>
+<a href="{% url 'clock:settings' %}">
+    <button class="settings-btn">⚙ 設定</button>
+</a>
+
+<!-- 🔔 タイマー終了画面（最初は非表示） -->
+<div id="timer-finish" class="timer-finish hidden">
+    <div class="finish-box">
+        <h1>終了！！⏰</h1>
+        <p>おつかれさま ☕️</p>
+        <button id="finish-close">OK</button>
+    </div>
+</div>
 
 </body>
 </html>

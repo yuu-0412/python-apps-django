@@ -1,103 +1,138 @@
-body {
-    font-family: 'Zen Maru Gothic', sans-serif;
-    background: linear-gradient(to bottom right, #ffeaf5, #e5f0ff);
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin: 0;
-    padding: 0;
-    text-align: center;
+/* ===== 共通 ===== */
+* {
+    box-sizing: border-box;
 }
 
+body {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(to bottom right, #ffeaf5, #e5f0ff);
+}
+
+/* ===== 画面回転警告 ===== */
+#rotate-warning {
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 240, 250, 0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.rotate-box {
+    background: white;
+    padding: 30px 40px;
+    border-radius: 20px;
+    font-size: 1.2rem;
+}
+
+/* ===== タブボタン ===== */
 .tab-buttons {
     display: flex;
-    justify-content: center;
     gap: 10px;
-    margin-bottom: 20px;
+    margin: 15px 0;
 }
 
 .tab-btn {
-    padding: 8px 16px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
+    padding: 8px 14px;
+    border-radius: 12px;
+    border: none;
     background: white;
-    cursor: pointer;
     font-weight: bold;
-    transition: background-color 0.2s;
-}
-
-.tab-btn:hover {
-    background-color: #ffeaf5;
+    cursor: pointer;
 }
 
 .tab-btn.active {
-    background-color: #f0a070;
+    background: #f0a070;
     color: white;
 }
 
+/* ===== 表示エリア ===== */
 .tab-section {
-    display: none; /* 初期は非表示 */
+    display: none;
+    flex: 1;
+    width: 100%;
+    max-width: 600px;
+    justify-content: center;
+    align-items: center;
 }
 
 .tab-section.active {
-    display: flex; /* ボタン押したら表示 */
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    display: flex;
 }
 
+/* ===== コンテンツ共通 ===== */
 .clock-container,
 .stopwatch-container,
 .timer-container {
-    padding: 2rem;
-    border-radius: 2rem;
-    background-color: rgba(255,255,255,0.6);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    width: 100%;
+    padding: 20px;
+    border-radius: 25px;
+    background: rgba(255,255,255,0.7);
     backdrop-filter: blur(10px);
-    animation: float 4s ease-in-out infinite;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
+/* ===== 文字 ===== */
 h1 {
-    font-size: 5rem;
+    font-size: 3.5rem;
+    margin: 10px 0;
     color: #444;
-    margin: 0.5rem 0;
-    letter-spacing: 2px;
 }
 
-.message {
-    font-size: 1.5rem;
-    color: #666;
-    margin-top: 0.5rem;
+/* ===== ボタン ===== */
+button {
+    margin: 5px;
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: none;
+    background: #f0a070;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
 }
 
+/* ===== 設定ボタン ===== */
 .settings-btn {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 10px;
+    right: 10px;
     background: white;
-    padding: 8px 12px;
-    border-radius: 10px;
-    text-decoration: none;
     color: #333;
-    font-weight: bold;
 }
 
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+/* ===== タイマー終了 ===== */
+.timer-finish {
+    position: fixed;
+    inset: 0;
+    background: rgba(255,240,250,0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
 }
 
-@media screen and (max-width: 768px) {
-    h1 { font-size: 3rem; }
-    .message { font-size: 1.2rem; }
-    .clock-container,
-    .stopwatch-container,
-    .timer-container { width: 85%; padding: 1.5rem; border-radius: 1.5rem; }
+.timer-finish.show {
+    display: flex;
 }
 
-@media screen and (max-width: 480px) {
-    h1 { font-size: 2.5rem; }
-    .message { font-size: 1rem; }
+.finish-box {
+    background: white;
+    padding: 30px 40px;
+    border-radius: 30px;
+}
+
+/* ===== iPhone縦は禁止 ===== */
+@media screen and (orientation: portrait) {
+    #rotate-warning {
+        display: flex;
+    }
 }
