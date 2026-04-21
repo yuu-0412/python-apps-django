@@ -1,138 +1,67 @@
-/* ===== 共通 ===== */
-* {
+*{
     box-sizing: border-box;
 }
 
 body {
-    font-family: 'Zen Maru Gothic', sans-serif;
     margin: 0;
     height: 100vh;
     overflow: hidden;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    background-size: cover;
+    background-position: center;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    text-align: center;
-    background: linear-gradient(to bottom right, #ffeaf5, #e5f0ff);
 }
 
-/* ===== 画面回転警告 ===== */
-#rotate-warning {
-    position: fixed;
-    inset: 0;
-    background: rgba(255, 240, 250, 0.95);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
-
-.rotate-box {
-    background: white;
-    padding: 30px 40px;
-    border-radius: 20px;
-    font-size: 1.2rem;
-}
-
-/* ===== タブボタン ===== */
+/* タブボタン */
 .tab-buttons {
     display: flex;
-    gap: 10px;
-    margin: 15px 0;
+    justify-content: center;
+    gap: 20px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.4);
 }
 
 .tab-btn {
-    padding: 8px 14px;
-    border-radius: 12px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 20px;
     border: none;
-    background: white;
-    font-weight: bold;
     cursor: pointer;
 }
 
-.tab-btn.active {
-    background: #f0a070;
-    color: white;
-}
-
-/* ===== 表示エリア ===== */
+/* セクション共通 */
 .tab-section {
     display: none;
     flex: 1;
-    width: 100%;
-    max-width: 600px;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 .tab-section.active {
     display: flex;
 }
 
-/* ===== コンテンツ共通 ===== */
-.clock-container,
-.stopwatch-container,
-.timer-container {
-    width: 100%;
-    padding: 20px;
-    border-radius: 25px;
-    background: rgba(255,255,255,0.7);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-}
-
-/* ===== 文字 ===== */
-h1 {
-    font-size: 3.5rem;
-    margin: 10px 0;
-    color: #444;
-}
-
-/* ===== ボタン ===== */
-button {
-    margin: 5px;
-    padding: 8px 14px;
-    border-radius: 10px;
-    border: none;
-    background: #f0a070;
+/* 時計サイズ修正 */
+#clock,
+#stopwatch,
+#timer-display {
+    font-size: clamp(40px, 8vw, 120px);
     color: white;
-    font-weight: bold;
-    cursor: pointer;
+    text-shadow: 0 0 15px rgba(0,0,0,0.6);
 }
 
-/* ===== 設定ボタン ===== */
-.settings-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: white;
-    color: #333;
-}
-
-/* ===== タイマー終了 ===== */
+/* タイマー終了画面 */
 .timer-finish {
     position: fixed;
     inset: 0;
-    background: rgba(255,240,250,0.95);
-    display: none;
+    background: rgba(0,0,0,0.7);
+    display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999;
 }
 
-.timer-finish.show {
-    display: flex;
-}
-
-.finish-box {
-    background: white;
-    padding: 30px 40px;
-    border-radius: 30px;
-}
-
-/* ===== iPhone縦は禁止 ===== */
-@media screen and (orientation: portrait) {
-    #rotate-warning {
-        display: flex;
-    }
+.hidden {
+    display: none;
 }

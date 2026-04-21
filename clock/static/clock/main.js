@@ -59,25 +59,41 @@ document.getElementById('sw-reset').onclick = () => {
 let timerInterval;
 let timerTime = 0;
 
+const timerDisplay = document.getElementById("timer-display");
 const timerFinish = document.getElementById("timer-finish");
 
 document.getElementById("timer-start").onclick = () => {
+
     const minutes = parseInt(document.getElementById("timer-min").value);
+
+    if (isNaN(minutes) || minutes <= 0) return;
+
     timerTime = minutes * 60;
 
     clearInterval(timerInterval);
 
     timerInterval = setInterval(() => {
+
         if (timerTime <= 0) {
             clearInterval(timerInterval);
+            timerDisplay.textContent = "00:00";
             timerFinish.classList.add("show");
             return;
         }
+
         timerTime--;
+
+        const m = String(Math.floor(timerTime / 60)).padStart(2, "0");
+        const s = String(timerTime % 60).padStart(2, "0");
+
+        timerDisplay.textContent = `${m}:${s}`;
+
     }, 1000);
 };
 
 document.getElementById("timer-reset").onclick = () => {
     clearInterval(timerInterval);
     timerTime = 0;
+    timerDisplay.textContent = "00:00";
+    timerFinish.classList.remove("show");
 };

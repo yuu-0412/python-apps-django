@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>今日は使っていい？</title>
+<style>
+body {
+    background: #eef4f3;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.card {
+    max-width: 400px;
+    margin: 60px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 24px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+h1, h2 {
+    color: #5a7f7a;
+    margin: 10px 0;
+}
+
+button {
+    background: #9adbc5;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+input {
+    width: 70%;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.message {
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #4a6f64;
+}
+
+/* 残り予算バー */
+.progress-container {
+    margin: 20px 0;
+}
+
+.progress-bar-bg {
+    height: 14px;
+    background: #e6efed;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: #9adbc5;
+    transition: width 0.5s;
+}
+
+/* 木の表示 */
+.tree {
+    margin: 20px 0;
+    font-size: 50px;
+    transition: transform 0.5s ease-in-out;
+}
+
+/* レベルに応じて木を大きくする */
+.tree-level-1 { transform: scale(1); }
+.tree-level-2 { transform: scale(1.2); }
+.tree-level-3 { transform: scale(1.4); }
+.tree-level-4 { transform: scale(1.6); }
+.tree-level-5 { transform: scale(1.8); }
+.tree-level-6 { transform: scale(2); }
+
+/* 履歴 */
+.history {
+    margin-top: 30px;
+    text-align: left;
+}
+
+.history h3 {
+    font-size: 14px;
+    color: #666;
+}
+
+.history ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+.history li {
+    font-size: 14px;
+    padding: 6px 0;
+    border-bottom: 1px dashed #eee;
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+    <h2>今月の残り予算</h2>
+    <h1>{{ remaining }} 円</h1>
+
+    <!-- 残り予算バー -->
+    <div class="progress-container">
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" style="width: {{ percent }}%;"></div>
+        </div>
+        <p style="font-size:12px;color:#666;">残り {{ percent }}%</p>
+    </div>
+
+    <!-- 木のステージ（レベルに応じてクラス付与） -->
+    <div class="tree tree-level-{{ tree_level }}">{{ tree_stage }}</div>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="number" name="amount" placeholder="使いたい金額">
+        <br>
+        <button type="submit">使っていい？</button>
+    </form>
+
+    {% if message %}
+        <p class="message">{{ message }}</p>
+    {% endif %}
+
+    <!-- 任意: 支出履歴 -->
+    <div class="history">
+        <h3>支出履歴</h3>
+        <ul>
+            {% for expense in expenses %}
+            <li>{{ expense.created_at|date:"m/d" }}: {{ expense.price }} 円</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

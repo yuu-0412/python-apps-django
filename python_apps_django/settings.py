@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'clock',                  # clock アプリ
+    'money.apps.MoneyConfig',
     'work05.apps.Work05Config',
     'work06.apps.Work06Config',
     'work07.apps.Work07Config',
@@ -109,7 +110,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "work05" / "static",
     BASE_DIR / "work09" / "static",
-    BASE_DIR / "static",
 ]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"

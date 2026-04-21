@@ -31,6 +31,7 @@ urlpatterns = [
 
     path("admin/", admin.site.urls),
     path("clock/", include("clock.urls")),
+    path("money/", include("money.urls")),
     path("work05/", include("work05.urls")),
     path("work06/", include("work06.urls")),
     path("work07/", include("work07.urls")),
