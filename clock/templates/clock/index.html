@@ -43,12 +43,38 @@ style="background-image:url('{{ photo.image.url }}'); background-size:cover; bac
 
 <!-- タイマー -->
 <div id="timer-section" class="tab-section timer-container">
-    <input type="time" id="timer-time" step="1">
-    <h1 id="timer-display">00:00</h1>
-    <button id="timer-start">開始</button>
-    <button id="timer-reset">リセット</button>
-</div>
 
+    <div class="timer-picker">
+
+        <div class="wheel-group">
+            <div class="wheel" id="hours-wheel">
+                <div class="wheel-list" id="hours-list"></div>
+            </div>
+            <span>時間</span>
+        </div>
+
+        <div class="wheel-group">
+            <div class="wheel" id="minutes-wheel">
+                <div class="wheel-list" id="minutes-list"></div>
+            </div>
+            <span>分</span>
+        </div>
+
+        <div class="wheel-group">
+            <div class="wheel" id="seconds-wheel">
+                <div class="wheel-list" id="seconds-list"></div>
+            </div>
+            <span>秒</span>
+        </div>
+
+    </div>
+
+    <div class="timer-buttons">
+        <button id="timer-start">開始</button>
+        <button id="timer-reset">リセット</button>
+    </div>
+
+</div>
 <a href="{% url 'clock:settings' %}">
     <button class="settings-btn">⚙ 設定</button>
 </a>

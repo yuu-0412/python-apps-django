@@ -55,45 +55,174 @@ document.getElementById('sw-reset').onclick = () => {
     swDisplay.textContent = "00:00:00";
 };
 
-// --- タイマー ---
-let timerInterval;
+/* =========================
+   タイマー
+========================= */
+
+let timerInterval = null;
 let timerTime = 0;
 
-const timerDisplay = document.getElementById("timer-display");
 const timerFinish = document.getElementById("timer-finish");
 
+// ホイール設定
+const wheelSettings = [
+    { id: "hours", max: 23 },
+    { id: "minutes", max: 59 },
+    { id: "seconds", max: 59 }
+];
+
+const wheels = {};
+
+// ホイールを作成
+wheelSettings.forEach(setting => {
+
+    const wheel = document.getElementById(setting.id + "-wheel");
+    const list = document.getElementById(setting.id + "-list");
+
+    wheels[setting.id] = wheel;
+
+    // 数字を作成
+    for (let i = 0; i <= setting.max; i++) {
+
+        const item = document.createElement("div");
+
+        item.className = "wheel-item";
+        item.textContent = String(i).padStart(2, "0");
+
+        // 数字をクリックして選択
+        item.onclick = () => {
+            if (timerInterval !== null) return;
+
+            wheel.scrollTop = i * 48;
+            updateSelected(setting.id);
+        };
+
+        list.appendChild(item);
+    }
+
+    // スクロール時に選択数字を更新
+    wheel.addEventListener("scroll", () => {
+        updateSelected(setting.id);
+    });
+
+    updateSelected(setting.id);
+});
+
+
+// 選択中の数字を更新
+function updateSelected(id) {
+
+    const wheel = wheels[id];
+
+    const index = Math.round(wheel.scrollTop / 48);
+
+    wheel.querySelectorAll(".wheel-item").forEach((item, i) => {
+
+        item.classList.toggle("selected", i === index);
+
+    });
+}
+
+
+// ホイールを指定した数字に戻す
+function setWheel(id, value) {
+
+    const wheel = wheels[id];
+
+    wheel.scrollTop = value * 48;
+
+    updateSelected(id);
+}
+
+
+// ホイールから選択中の数字を取得
+function getWheelValue(id) {
+
+    return Math.round(wheels[id].scrollTop / 48);
+}
+
+
+// タイマーの残り時間をホイールに表示
+function setTimerDisplay(seconds) {
+
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+
+    setWheel("hours", hours);
+    setWheel("minutes", minutes);
+    setWheel("seconds", secs);
+}
+
+
+// 開始ボタン
 document.getElementById("timer-start").onclick = () => {
 
-    const minutes = parseInt(document.getElementById("timer-min").value);
+    if (timerInterval !== null) return;
 
-    if (isNaN(minutes) || minutes <= 0) return;
+    // 初回はホイールの選択時間を取得
+    if (timerTime === 0) {
 
-    timerTime = minutes * 60;
+        const hours = getWheelValue("hours");
+        const minutes = getWheelValue("minutes");
+        const seconds = getWheelValue("seconds");
 
-    clearInterval(timerInterval);
+        timerTime =
+            hours * 3600 +
+            minutes * 60 +
+            seconds;
+
+        if (timerTime <= 0) return;
+    }
+
+    // ホイール操作を無効化
+    Object.values(wheels).forEach(wheel => {
+        wheel.style.pointerEvents = "none";
+    });
 
     timerInterval = setInterval(() => {
 
-        if (timerTime <= 0) {
-            clearInterval(timerInterval);
-            timerDisplay.textContent = "00:00";
-            timerFinish.classList.add("show");
-            return;
-        }
-
         timerTime--;
 
-        const m = String(Math.floor(timerTime / 60)).padStart(2, "0");
-        const s = String(timerTime % 60).padStart(2, "0");
+        setTimerDisplay(timerTime);
 
-        timerDisplay.textContent = `${m}:${s}`;
+        // 0になったら終了
+        if (timerTime <= 0) {
+
+            clearInterval(timerInterval);
+            timerInterval = null;
+
+            timerTime = 0;
+
+            Object.values(wheels).forEach(wheel => {
+                wheel.style.pointerEvents = "auto";
+            });
+
+            timerFinish.classList.remove("hidden");
+        }
 
     }, 1000);
 };
 
+
+// リセットボタン
 document.getElementById("timer-reset").onclick = () => {
+
     clearInterval(timerInterval);
+    timerInterval = null;
+
     timerTime = 0;
-    timerDisplay.textContent = "00:00";
-    timerFinish.classList.remove("show");
+
+    // ホイール操作を有効化
+    Object.values(wheels).forEach(wheel => {
+        wheel.style.pointerEvents = "auto";
+    });
+
+    // 全部00に戻す
+    setWheel("hours", 0);
+    setWheel("minutes", 0);
+    setWheel("seconds", 0);
+
+    // 終了画面を閉じる
+    timerFinish.classList.add("hidden");
 };

@@ -1,26 +1,32 @@
+
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>壁紙設定</title>
 
     <link rel="stylesheet" href="{% static 'clock/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>壁紙設定</h1>
+    <div class="settings-container">
+        <h1>壁紙設定</h1>
 
-<hr>
+        <div class="settings-box">
+            <h2>新しい写真を追加</h2>
 
-<h2>新しい写真を追加</h2>
-<form action="{% url 'clock:settings' %}" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">アップロード</button>
-</form>
+            <form action="{% url 'clock:settings' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">アップロード</button>
+            </form>
+        </div>
 
-<br>
-<a href="{% url 'clock:index' %}">← 時計に戻る</a>
+        <a href="{% url 'clock:index' %}" class="back-btn">
+            ← 時計に戻る
+        </a>
+    </div>
 </body>
 </html>

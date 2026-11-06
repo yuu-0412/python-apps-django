@@ -131,3 +131,178 @@ body {
     margin-top: 25px;
     text-decoration: none;
 }
+
+
+/* 設定ボタン */
+.settings-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 14px 28px;
+    font-size: 18px;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    border: none;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    transition: 0.3s;
+}
+
+.settings-btn:hover {
+    transform: scale(1.05);
+    background: white;
+}
+
+/* ボタン共通デザイン */
+.tab-section button {
+    padding: 14px 30px;
+    font-size: 17px;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    border: none;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    margin: 8px;
+}
+
+.tab-section button:hover {
+    transform: translateY(-3px);
+    background: white;
+}
+
+/* タイマー時間入力 */
+#timer-time {
+    width: 180px;
+    padding: 14px 20px;
+    font-size: 22px;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    text-align: center;
+    color: #333;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    outline: none;
+    cursor: pointer;
+}
+
+/* タイマー入力・表示 */
+#timer-display {
+    width: 220px;
+    padding: 15px 20px;
+    font-size: 48px;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    text-align: center;
+    color: #333;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    outline: none;
+    margin-bottom: 25px;
+}
+
+#timer-display:disabled {
+    opacity: 1;
+    color: #333;
+}
+
+/* タイマーボタン */
+.timer-container button {
+    min-width: 100px;
+}
+
+/* タイマーホイール */
+.timer-picker {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.75);
+    border-radius: 25px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.wheel-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 18px;
+    color: #333;
+}
+
+.wheel {
+    width: 75px;
+    height: 144px;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scrollbar-width: none;
+    overscroll-behavior: contain;
+}
+
+.wheel::-webkit-scrollbar {
+    display: none;
+}
+
+.wheel-list {
+    padding: 48px 0;
+}
+
+.wheel-item {
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    color: rgba(0,0,0,0.35);
+    scroll-snap-align: start;
+    cursor: pointer;
+}
+
+.wheel-item.selected {
+    color: #333;
+    font-size: 34px;
+    font-weight: bold;
+}
+
+.timer-picker {
+    position: relative;
+}
+
+.timer-picker::after {
+    content: "";
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 73px;
+    height: 48px;
+    border-top: 1px solid rgba(0,0,0,0.15);
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+    pointer-events: none;
+}
+
+.timer-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.timer-container button {
+    padding: 14px 30px;
+    font-size: 17px;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    border: none;
+    border-radius: 30px;
+    background: rgba(255,255,255,0.9);
+    color: #333;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
