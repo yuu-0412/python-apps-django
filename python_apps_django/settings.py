@@ -28,7 +28,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'clock',                  # clock アプリ
-    'money.apps.MoneyConfig',
     'work05.apps.Work05Config',
     'work06.apps.Work06Config',
     'work07.apps.Work07Config',

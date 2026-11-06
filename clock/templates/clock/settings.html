@@ -11,20 +11,6 @@
 <body>
     <h1>壁紙設定</h1>
 
-<h2>背景を選ぶ</h2>
-
-<div style="display:flex; flex-wrap:wrap; gap:15px;">
-    {% for p in photos %}
-    <div style="text-align:center;">
-        <img src="{{ p.image.url }}" width="120" style="border-radius:8px;">
-        <br>
-        <a href="{% url 'clock:set_bg' p.id %}">
-            <button>背景に設定</button>
-        </a>
-    </div>
-    {% endfor %}
-</div>
-
 <hr>
 
 <h2>新しい写真を追加</h2>

@@ -65,3 +65,69 @@ body {
 .hidden {
     display: none;
 }
+
+
+/* =========================
+   壁紙設定画面
+========================= */
+
+.settings-container {
+    flex: 1;
+    width: 100%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background: rgba(0, 0, 0, 0.35);
+}
+
+.settings-container h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.settings-container h2 {
+    font-size: 22px;
+    margin-bottom: 25px;
+}
+
+.settings-box {
+    width: min(90%, 500px);
+    padding: 30px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.85);
+    color: #333;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.settings-box input {
+    width: 100%;
+    margin: 15px 0;
+}
+
+.settings-box button,
+.back-btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 20px;
+    background: #333;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.settings-box button:hover,
+.back-btn:hover {
+    background: #666;
+    transform: translateY(-2px);
+}
+
+.back-btn {
+    display: inline-block;
+    margin-top: 25px;
+    text-decoration: none;
+}
