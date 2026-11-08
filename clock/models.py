@@ -1,8 +1,18 @@
-# clock/models.py
+
 from django.db import models
 
+
 class ClockPhoto(models.Model):
+    # 利用者を識別するCookieのID
+    owner_id = models.CharField(
+        max_length=64,
+        db_index=True
+    )
+
+    # アップロードした写真
     image = models.ImageField(upload_to='photos/')
+
+    # アップロード日時
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -10,11 +20,20 @@ class ClockPhoto(models.Model):
 
 
 class ClockSetting(models.Model):
-    # 背景に設定されている写真を1つ記録
+    # 利用者を識別するCookieのID
+    owner_id = models.CharField(
+        max_length=64,
+        unique=True,
+        db_index=True
+    )
+
+    # 選択中の背景写真
     selected_photo = models.ForeignKey(
-        ClockPhoto, null=True, blank=True, on_delete=models.SET_NULL
-        
+        ClockPhoto,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL
     )
 
     def __str__(self):
-        return "Clock Setting"
+        return f"Clock Setting: {self.owner_id}"

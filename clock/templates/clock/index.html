@@ -1,17 +1,21 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>tokei ⏰</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORBIT</title>
+
     <link rel="stylesheet" href="{% static 'clock/style.css' %}">
     <script src="{% static 'clock/main.js' %}" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 
 <body
 {% if photo %}
-style="background-image:url('{{ photo.image.url }}'); background-size:cover; background-position:center;"
+style="background-image:url('{% url 'clock:serve_photo' photo.id %}'); background-size:cover; background-position:center;"
 {% endif %}
 >
 
@@ -20,6 +24,29 @@ style="background-image:url('{{ photo.image.url }}'); background-size:cover; bac
         <p>📱 画面を横向きにしてください</p>
     </div>
 </div>
+
+
+<!-- ヘッダー -->
+<div class="app-header">
+
+    <div class="orbit-logo">
+        <svg class="orbit-symbol" viewBox="0 0 50 50">
+            <circle cx="25" cy="25" r="9"
+                    fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <ellipse cx="25" cy="25" rx="22" ry="10"
+                     transform="rotate(-35 25 25)"
+                     fill="none" stroke="currentColor" stroke-width="1.2"/>
+            <circle cx="43" cy="12" r="2.5" fill="currentColor"/>
+        </svg>
+        <span>ORBIT</span>
+    </div>
+
+    <a href="{% url 'clock:settings' %}" class="header-settings">
+        ⚙
+    </a>
+
+</div>
+
 
 <!-- タブボタン -->
 <div class="tab-buttons">
@@ -75,11 +102,10 @@ style="background-image:url('{{ photo.image.url }}'); background-size:cover; bac
     </div>
 
 </div>
-<a href="{% url 'clock:settings' %}">
-    <button class="settings-btn">⚙ 設定</button>
-</a>
 
-<!-- 🔔 タイマー終了画面（最初は非表示） -->
+
+
+<!-- タイマー終了画面 -->
 <div id="timer-finish" class="timer-finish hidden">
     <div class="finish-box">
         <h1>終了！！⏰</h1>

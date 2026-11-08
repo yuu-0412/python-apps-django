@@ -1,32 +1,119 @@
 
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>壁紙設定</title>
+
+    <title>ORBIT | Settings</title>
 
     <link rel="stylesheet" href="{% static 'clock/style.css' %}">
+
     <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div class="settings-container">
-        <h1>壁紙設定</h1>
 
-        <div class="settings-box">
-            <h2>新しい写真を追加</h2>
+<body class="settings-page">
 
-            <form action="{% url 'clock:settings' %}" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">アップロード</button>
-            </form>
-        </div>
+<div class="settings-container">
 
-        <a href="{% url 'clock:index' %}" class="back-btn">
-            ← 時計に戻る
-        </a>
+    <h1>壁紙設定</h1>
+
+    <!-- 写真アップロード -->
+    <div class="settings-box">
+
+        <h2>新しい写真を追加</h2>
+
+        <form
+            action="{% url 'clock:settings' %}"
+            method="POST"
+            enctype="multipart/form-data"
+        >
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <input type="hidden" name="action" value="upload">
+
+            <button type="submit">アップロード</button>
+        </form>
+
     </div>
+
+    <!-- 保存済み写真一覧 -->
+    <div class="settings-box">
+
+        <h2>保存した写真</h2>
+
+        {% if photos %}
+
+            <div class="photo-gallery">
+
+                {% for photo in photos %}
+
+                    <div class="photo-card">
+
+                        <img
+                            src="{% url 'clock:serve_photo' photo.id %}"
+                            alt="保存した写真"
+                        >
+
+                        {% if setting.selected_photo_id == photo.id %}
+                            <p class="selected-label">現在の背景 ✓</p>
+                        {% endif %}
+
+                        <!-- 背景選択 -->
+                        <form method="POST" action="{% url 'clock:settings' %}">
+                            {% csrf_token %}
+
+                            <input type="hidden" name="action" value="select">
+                            <input type="hidden" name="selected_photo" value="{{ photo.id }}">
+
+                            <button type="submit">
+                                {% if setting.selected_photo_id == photo.id %}
+                                    選択中
+                                {% else %}
+                                    この写真を背景にする
+                                {% endif %}
+                            </button>
+                        </form>
+
+                        <!-- 写真削除 -->
+                        <form
+                            method="POST"
+                            action="{% url 'clock:settings' %}"
+                            onsubmit="return confirm('この写真を削除してもいいですか？');"
+                        >
+                            {% csrf_token %}
+
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="photo_id" value="{{ photo.id }}">
+
+                            <button type="submit" class="delete-btn">
+                                🗑 写真を削除
+                            </button>
+                        </form>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <p>まだ写真がありません。</p>
+
+        {% endif %}
+
+    </div>
+
+    <a href="{% url 'clock:index' %}" class="back-btn">
+        ← 時計に戻る
+    </a>
+
+</div>
+
 </body>
 </html>

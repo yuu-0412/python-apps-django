@@ -1,4 +1,8 @@
-/* -------- タブ切り替え -------- */
+
+/* =========================
+   タブ切り替え
+========================= */
+
 const tabBtns = document.querySelectorAll('.tab-btn');
 const sections = document.querySelectorAll('.tab-section');
 
@@ -8,12 +12,21 @@ tabBtns.forEach(btn => {
         sections.forEach(s => s.classList.remove('active'));
 
         btn.classList.add('active');
+
         document.getElementById(btn.dataset.target).classList.add('active');
     });
 });
 
+
+/* =========================
+   画面の向き
+========================= */
+
 function checkOrientation() {
     const warning = document.getElementById("rotate-warning");
+
+    if (!warning) return;
+
     if (window.innerHeight > window.innerWidth) {
         warning.style.display = "flex";
     } else {
@@ -24,36 +37,70 @@ function checkOrientation() {
 window.addEventListener("resize", checkOrientation);
 window.addEventListener("load", checkOrientation);
 
-/* -------- 時計 -------- */
-function updateClock(){
+
+/* =========================
+   時計
+========================= */
+
+function updateClock() {
+    const clock = document.getElementById('clock');
+
+    if (!clock) return;
+
     const now = new Date();
-    document.getElementById('clock').textContent =
-        now.toLocaleTimeString('ja-JP', { hour12:false });
+
+    clock.textContent = now.toLocaleTimeString('ja-JP', {
+        hour12: false
+    });
 }
+
 setInterval(updateClock, 1000);
 updateClock();
 
-/* -------- ストップウォッチ -------- */
-let swInterval, swTime = 0;
+
+/* =========================
+   ストップウォッチ
+========================= */
+
+let swInterval = null;
+let swTime = 0;
+
 const swDisplay = document.getElementById('stopwatch');
 
 document.getElementById('sw-start').onclick = () => {
-    clearInterval(swInterval);
+
+    if (swInterval !== null) return;
+
     swInterval = setInterval(() => {
+
         swTime++;
-        const h = String(Math.floor(swTime/3600)).padStart(2,'0');
-        const m = String(Math.floor(swTime/60)%60).padStart(2,'0');
-        const s = String(swTime%60).padStart(2,'0');
+
+        const h = String(Math.floor(swTime / 3600)).padStart(2, '0');
+        const m = String(Math.floor(swTime / 60) % 60).padStart(2, '0');
+        const s = String(swTime % 60).padStart(2, '0');
+
         swDisplay.textContent = `${h}:${m}:${s}`;
-    },1000);
+
+    }, 1000);
 };
 
-document.getElementById('sw-stop').onclick = () => clearInterval(swInterval);
-document.getElementById('sw-reset').onclick = () => {
+
+document.getElementById('sw-stop').onclick = () => {
     clearInterval(swInterval);
+    swInterval = null;
+};
+
+
+document.getElementById('sw-reset').onclick = () => {
+
+    clearInterval(swInterval);
+
+    swInterval = null;
     swTime = 0;
+
     swDisplay.textContent = "00:00:00";
 };
+
 
 /* =========================
    タイマー
@@ -64,6 +111,7 @@ let timerTime = 0;
 
 const timerFinish = document.getElementById("timer-finish");
 
+
 // ホイール設定
 const wheelSettings = [
     { id: "hours", max: 23 },
@@ -73,6 +121,7 @@ const wheelSettings = [
 
 const wheels = {};
 
+
 // ホイールを作成
 wheelSettings.forEach(setting => {
 
@@ -81,7 +130,6 @@ wheelSettings.forEach(setting => {
 
     wheels[setting.id] = wheel;
 
-    // 数字を作成
     for (let i = 0; i <= setting.max; i++) {
 
         const item = document.createElement("div");
@@ -91,9 +139,13 @@ wheelSettings.forEach(setting => {
 
         // 数字をクリックして選択
         item.onclick = () => {
+
             if (timerInterval !== null) return;
 
-            wheel.scrollTop = i * 48;
+            const itemHeight = item.getBoundingClientRect().height;
+
+            wheel.scrollTop = i * itemHeight;
+
             updateSelected(setting.id);
         };
 
@@ -109,27 +161,39 @@ wheelSettings.forEach(setting => {
 });
 
 
+// 数字1つ分の高さを取得
+function getItemHeight(id) {
+
+    const item = wheels[id].querySelector(".wheel-item");
+
+    return item.getBoundingClientRect().height;
+}
+
+
 // 選択中の数字を更新
 function updateSelected(id) {
 
     const wheel = wheels[id];
+    const itemHeight = getItemHeight(id);
 
-    const index = Math.round(wheel.scrollTop / 48);
+    const index = Math.round(wheel.scrollTop / itemHeight);
 
     wheel.querySelectorAll(".wheel-item").forEach((item, i) => {
-
         item.classList.toggle("selected", i === index);
-
     });
 }
 
 
-// ホイールを指定した数字に戻す
+// ホイールを指定した数字に移動
 function setWheel(id, value) {
 
     const wheel = wheels[id];
+    const itemHeight = getItemHeight(id);
 
-    wheel.scrollTop = value * 48;
+    wheel.scrollTo({
+        top: value * itemHeight,
+        behavior: "instant"
+    });
 
     updateSelected(id);
 }
@@ -138,7 +202,15 @@ function setWheel(id, value) {
 // ホイールから選択中の数字を取得
 function getWheelValue(id) {
 
-    return Math.round(wheels[id].scrollTop / 48);
+    const wheel = wheels[id];
+    const itemHeight = getItemHeight(id);
+
+    const max = wheel.querySelectorAll(".wheel-item").length - 1;
+
+    return Math.max(0, Math.min(
+        Math.round(wheel.scrollTop / itemHeight),
+        max
+    ));
 }
 
 
@@ -155,12 +227,48 @@ function setTimerDisplay(seconds) {
 }
 
 
-// 開始ボタン
+// ホイール操作の有効・無効
+function setWheelEnabled(enabled) {
+
+    Object.values(wheels).forEach(wheel => {
+        wheel.style.pointerEvents = enabled ? "auto" : "none";
+    });
+}
+
+
+// タイマーを00に戻す
+function resetTimer() {
+
+    clearInterval(timerInterval);
+
+    timerInterval = null;
+    timerTime = 0;
+
+    setWheelEnabled(true);
+
+    ["hours", "minutes", "seconds"].forEach(id => {
+
+        const wheel = wheels[id];
+
+        wheel.scrollTo({
+            top: 0,
+            behavior: "instant"
+        });
+
+        wheel.querySelectorAll(".wheel-item").forEach((item, index) => {
+            item.classList.toggle("selected", index === 0);
+        });
+
+    });
+}
+
+
+// タイマー開始
 document.getElementById("timer-start").onclick = () => {
 
     if (timerInterval !== null) return;
 
-    // 初回はホイールの選択時間を取得
+    // 選択した時間を取得
     if (timerTime === 0) {
 
         const hours = getWheelValue("hours");
@@ -176,9 +284,7 @@ document.getElementById("timer-start").onclick = () => {
     }
 
     // ホイール操作を無効化
-    Object.values(wheels).forEach(wheel => {
-        wheel.style.pointerEvents = "none";
-    });
+    setWheelEnabled(false);
 
     timerInterval = setInterval(() => {
 
@@ -186,18 +292,19 @@ document.getElementById("timer-start").onclick = () => {
 
         setTimerDisplay(timerTime);
 
-        // 0になったら終了
-        if (timerTime <= 0) {
+        // タイマー終了
+        if (timerTime <= 0
+
+        ) {
 
             clearInterval(timerInterval);
             timerInterval = null;
 
             timerTime = 0;
 
-            Object.values(wheels).forEach(wheel => {
-                wheel.style.pointerEvents = "auto";
-            });
+            setWheelEnabled(true);
 
+            // 終了画面を表示
             timerFinish.classList.remove("hidden");
         }
 
@@ -205,24 +312,26 @@ document.getElementById("timer-start").onclick = () => {
 };
 
 
-// リセットボタン
+// タイマーリセット
 document.getElementById("timer-reset").onclick = () => {
 
-    clearInterval(timerInterval);
-    timerInterval = null;
-
-    timerTime = 0;
-
-    // ホイール操作を有効化
-    Object.values(wheels).forEach(wheel => {
-        wheel.style.pointerEvents = "auto";
-    });
-
-    // 全部00に戻す
-    setWheel("hours", 0);
-    setWheel("minutes", 0);
-    setWheel("seconds", 0);
+    resetTimer();
 
     // 終了画面を閉じる
     timerFinish.classList.add("hidden");
+};
+
+
+/* =========================
+   タイマー終了画面
+========================= */
+
+// OKボタン
+document.getElementById("finish-close").onclick = () => {
+
+    // 終了画面を閉じる
+    timerFinish.classList.add("hidden");
+
+    // タイマーを初期状態に戻す
+    resetTimer();
 };
